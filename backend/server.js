@@ -10,6 +10,7 @@ import userRouter from './routes/userRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
 
 dotenv.config();
+const port = process.env.PORT || 5000;
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
@@ -37,11 +38,14 @@ app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 
+app.get('/', (req, res) => {
+  res.send('Server is working fine');
+});
+
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
 });
 
-const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`serve at http://localhost:${port}`);
 });
