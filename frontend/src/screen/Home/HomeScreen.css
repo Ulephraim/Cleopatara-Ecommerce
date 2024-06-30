@@ -1,0 +1,164 @@
+/** @format */
+
+.nav-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.nav-container img {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.nav-container img.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.products-container {
+  /* background-color: red; */
+  padding: 2rem 6rem;
+}
+.products-container-header {
+  display: flex;
+  margin-bottom: 10px;
+  height: 40px;
+  background-color: white;
+  justify-content: space-between;
+  h3 {
+    align-items: center;
+    display: flex;
+    margin: 0;
+  }
+}
+.container-dm {
+  display: flex;
+  height: 40px;
+  width: 140px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  p {
+    margin: 0;
+    align-items: center;
+    display: flex;
+  }
+
+  &:hover {
+    color: #20b26a;
+  }
+}
+.product-card {
+  padding: 10px;
+  border: none;
+}
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: auto;
+}
+.card-icon {
+  font-size: 24px;
+  margin-right: 15px;
+  color: black;
+
+  &:hover {
+    cursor: pointer;
+    color: black;
+    background-color: transparent;
+  }
+}
+
+.grad-s {
+  background-image: linear-gradient(to bottom, #008080, #2db26a);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.card-btn .card-icon-button {
+  border: 0;
+  background-color: transparent;
+  background: none;
+  padding: 0;
+  &:hover {
+    background-color: none;
+    background: none;
+    color: black;
+  }
+}
+.card-body {
+  /* height: 120px; */
+  padding: 0.5rem;
+  a {
+    text-decoration: none;
+  }
+}
+.card-title {
+  color: black;
+  text-decoration: none;
+  font-size: 15px;
+  height: 36px;
+}
+.card-text {
+  margin-bottom: 0.5rem;
+}
+
+.mid-cont {
+  display: flex;
+  justify-content: center;
+}
+.mid-cont-message {
+  display: flex;
+  /* background-color: yellow; */
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  height: auto;
+  margin: 0px 40px;
+  h1 {
+    /* background-color: red; */
+  }
+  p {
+    height: 20px;
+    /* margin: 0; */
+    text-align: center;
+  }
+}
+@media (max-width: 500px) {
+  .card-title {
+    font-size: 14px;
+  }
+  .container-dm {
+    p {
+      display: none;
+    }
+  }
+  .products-container {
+    padding: 2rem;
+  }
+  .mid-cont {
+    padding: 0 1rem;
+    .mid-cont-message {
+      margin: 0 1rem;
+    }
+  }
+}
+@media (max-width: 820px) {
+  .nav-container {
+    height: 40vh;
+    img {
+      height: 40vh;
+    }
+  }
+}

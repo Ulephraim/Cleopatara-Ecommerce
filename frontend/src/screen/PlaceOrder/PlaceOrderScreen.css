@@ -1,0 +1,31 @@
+/** @format */
+
+.placeorder-container {
+  margin-top: 80px;
+  padding: 0 6rem;
+  .edit-tag {
+    color: #2db26a;
+  }
+  a {
+    color: black;
+  }
+}
+.placeorder-row {
+  display: flex;
+  flex-direction: row;
+}
+@media (max-width: 600px) {
+  .placeorder-container {
+    padding: 1rem;
+  }
+  .placeorder-container .col-md-4 {
+    width: 200px;
+  }
+
+  .placeorder-container .d-grid {
+    button {
+      padding: 10px;
+      width: 140px;
+    }
+  }
+}

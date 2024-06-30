@@ -1,0 +1,25 @@
+/** @format */
+
+.signin-position {
+  margin-top: 80px;
+  padding: 0 6rem;
+  min-height: 60vh;
+  a {
+    color: black;
+  }
+  .btn-primary {
+    color: white;
+    background-color: black;
+    padding: 10px 30px;
+    /* margin-right: 15px; */
+    width: 200px;
+    border-radius: 0;
+    outline: none;
+    border: none;
+    &:hover {
+      color: white;
+      background-image: linear-gradient(to bottom, #008080, #2db26a);
+      transition: 1s ease-in-out;
+    }
+  }
+}

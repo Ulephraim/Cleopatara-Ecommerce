@@ -1,0 +1,102 @@
+/** @format */
+
+.shipping-main-container {
+  margin-top: 80px;
+  padding: 0 6rem;
+  .form-control {
+    border: 1px solid #8a8a8a;
+  }
+}
+.form-row {
+  display: flex;
+  flex-direction: row;
+}
+.form-row .form-control:nth-child(2) {
+  margin-left: 1rem;
+}
+
+.mg-btm {
+  margin-bottom: 1rem;
+}
+.payment-method {
+  p {
+    font-weight: bold;
+  }
+}
+.form-check-cont {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+}
+.form-check-cont .form-check:nth-child(2) {
+  margin-left: 1rem;
+}
+.next-btn {
+  color: white;
+  background-color: black;
+  padding: 10px 30px;
+  /* margin-right: 15px; */
+  width: 200px;
+  border-radius: 0;
+  outline: none;
+  border: none;
+  &:hover {
+    color: white;
+    background-image: linear-gradient(to bottom, #008080, #2db26a);
+    transition: 1s ease-in-out;
+  }
+}
+.prev-btn {
+  color: black;
+  background-color: white;
+  padding: 10px 30px;
+  width: 200px;
+  border-radius: 0;
+  margin-left: 1rem;
+  outline: none;
+  border: 1px solid black;
+  a {
+    color: black;
+    text-decoration: none;
+  }
+  &:hover {
+    border: 1px solid #2db26a;
+    background-color: white;
+    a {
+      color: #2db26a;
+    }
+  }
+}
+
+.shipping-main-container .form-control:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #8a8a8a;
+  background-color: transparent;
+}
+.shipping-main-container .form-control::placeholder {
+  color: #8a8a8a;
+}
+.form-check .form-check-input {
+  border: 1px solid #8a8a8a;
+}
+
+.form-check .form-check-input:checked {
+  border: #008080;
+  background-color: #2db26a;
+}
+@media (max-width: 600px) {
+  .shipping-main-container {
+    padding: 1rem;
+  }
+  .next-btn {
+    font-size: 12px;
+    padding: 10px;
+    width: 140px;
+  }
+  .prev-btn {
+    font-size: 12px;
+    padding: 10px;
+    width: 140px;
+  }
+}

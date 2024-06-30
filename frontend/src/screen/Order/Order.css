@@ -1,0 +1,13 @@
+/** @format */
+
+.order-position {
+  margin-top: 80px;
+  padding: 0 6rem;
+  min-height: 60vh;
+}
+
+@media (max-width: 600px) {
+  .order-position {
+    padding: 1rem;
+  }
+}

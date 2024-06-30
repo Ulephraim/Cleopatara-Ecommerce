@@ -1,0 +1,339 @@
+/** @format */
+
+.s-product-container {
+  margin-top: 100px;
+  padding: 1rem 7rem;
+}
+.product-position {
+  margin-top: 80px;
+  padding: 0 6rem;
+  min-height: 60vh;
+
+  .btn-primary {
+    color: white;
+    background-color: black;
+    padding: 10px 30px;
+
+    width: 200px;
+    border-radius: 0;
+    outline: none;
+    border: none;
+    &:hover {
+      color: white;
+      background-image: linear-gradient(to bottom, #008080, #2db26a);
+      transition: 1s ease-in-out;
+    }
+  }
+}
+
+.product-row-1 {
+  /* border: 1px solid yellow; */
+  padding-top: 1rem;
+  margin: 0;
+}
+.product-col-1 .img-large {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.price-cont {
+  font-weight: bold;
+}
+.product-col-1 {
+  padding: 0;
+}
+
+.product-row-1-1 {
+  /* border: 1px solid green; */
+  display: flex;
+  height: auto;
+  text-align: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 10px;
+  p {
+    margin: 0;
+    text-align: center;
+    align-items: center;
+    /* margin-right: 10px; */
+    i {
+      padding: 0 5px;
+    }
+  }
+}
+.list-group-item {
+  border: none;
+}
+.product-button-container {
+  display: flex;
+  /* justify-content: space-between; */
+  flex-direction: row;
+}
+.bag-btn {
+  color: white;
+  background-color: black;
+  padding: 10px 30px;
+  /* margin-right: 15px; */
+  width: 200px;
+  border-radius: 0;
+  outline: none;
+  border: none;
+  &:hover {
+    color: white;
+    background-image: linear-gradient(to bottom, #008080, #2db26a);
+    transition: 1s ease-in-out;
+  }
+}
+.submit-btn {
+  color: white;
+  background-color: black;
+  padding: 10px 30px;
+  /* margin-right: 15px; */
+  width: 200px;
+  border-radius: 0;
+  outline: none;
+  border: none;
+  &:hover {
+    color: white;
+    background-image: linear-gradient(to bottom, #008080, #2db26a);
+    transition: 1s ease-in-out;
+  }
+}
+.wishlist-btn {
+  color: black;
+  background-color: white;
+  padding: 10px 30px;
+  width: 200px;
+  border-radius: 0;
+  outline: none;
+  border: 1px solid black;
+  &:hover {
+    border: 1px solid #2db26a;
+    background-color: white;
+    color: #2db26a;
+  }
+}
+.share-item {
+  p {
+    margin-bottom: 5px;
+  }
+}
+
+.qty-container {
+  width: 200px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.qty-btn-plus {
+  display: flex;
+  /* flex-direction: row; */
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin: 0;
+  /* margin-right: 10px; */
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 5px;
+  color: black;
+  background-color: white;
+  &:hover {
+    background-color: transparent;
+    border: 1px solid black;
+    color: black;
+  }
+}
+.qty-btn-minus {
+  display: flex;
+  /* flex-direction: row; */
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin: 0;
+  /* margin-right: 10px; */
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 5px;
+  color: black;
+  background-color: white;
+  &:hover {
+    background-color: transparent;
+    border: 1px solid black;
+    color: black;
+  }
+}
+.qty-span {
+  margin: 0 10px;
+  display: flex;
+  border: 1px solid black;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  /* margin: 0; */
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  color: black;
+  background-color: white;
+}
+.order-btn {
+  width: 220px;
+  /* padding: 10px 0px 10px 10px; */
+  /* border: 1px solid red; */
+}
+.qty-container-2 {
+  display: flex;
+  justify-content: space-between;
+}
+.qty-container-1 {
+  margin-top: 3px;
+}
+.list-group-item .desc-tg {
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+.customer-rev-cont {
+  display: flex;
+  /* background-color: red; */
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+}
+
+.review-cont {
+  padding: 1rem;
+}
+.alert-info {
+  margin: 0;
+}
+.rating-cont {
+  margin-bottom: 1rem;
+}
+.rating-cont .form-control {
+  border: 1px solid #cccc;
+  width: 250px;
+}
+
+.comment-form {
+  border: 1px solid #cccc;
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.comment-form:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #cccc;
+  background-color: transparent;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: auto;
+}
+
+.wishlist-buttn {
+  background-image: linear-gradient(to bottom, #008080, #2db26a);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.suggested-products-btn .grad-h {
+  background-image: linear-gradient(to bottom, #008080, #2db26a);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.suggested-products-btn .btn-primary {
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.suggested-products-btn {
+  display: flex;
+  background-color: transparent;
+  button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin-right: 1rem;
+    &:hover {
+      background-color: transparent;
+      color: black;
+    }
+  }
+  i {
+    color: black;
+    font-size: 22px;
+  }
+}
+.suggst-itm {
+  margin: 0;
+}
+.card {
+  border: none;
+}
+.suggested-products {
+  margin-top: 2rem;
+  h3 {
+    margin-bottom: 1.5rem;
+  }
+}
+.my-rev {
+  margin-top: 2rem;
+}
+@media (max-width: 600px) {
+  .s-product-container {
+    padding: 1rem;
+  }
+
+  .suggested-products .col-md-4 {
+    width: 200px;
+  }
+  .product-row-1 {
+    display: flex;
+    flex-direction: column;
+  }
+  .product-button-container {
+    padding: 1rem 0;
+    .bag-btn {
+      padding: 10px;
+      width: 160px;
+    }
+    .wishlist-btn {
+      padding: 10px;
+      width: 160px;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .s-product-container {
+    padding: 1rem;
+  }
+
+  .suggested-products .col-md-4 {
+    width: 200px;
+  }
+  .product-row-1 {
+    display: flex;
+    flex-direction: column;
+  }
+  .product-button-container {
+    padding: 1rem 0;
+    .bag-btn {
+      padding: 10px;
+      width: 200px;
+    }
+    .wishlist-btn {
+      padding: 10px;
+      width: 200px;
+    }
+  }
+}

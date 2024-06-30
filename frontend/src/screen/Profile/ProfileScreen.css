@@ -1,0 +1,19 @@
+/** @format */
+
+.profile-position {
+  .btn-primary {
+    color: white;
+    background-color: black;
+    padding: 10px 30px;
+
+    width: 200px;
+    border-radius: 0;
+    outline: none;
+    border: none;
+    &:hover {
+      color: white;
+      background-image: linear-gradient(to bottom, #008080, #2db26a);
+      transition: 1s ease-in-out;
+    }
+  }
+}
