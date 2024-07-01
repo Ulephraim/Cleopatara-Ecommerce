@@ -13,6 +13,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './CartScreen.css';
 import axios from 'axios';
 import NavBar from '../../components/Navbar/NavBar';
+import { API_BASE_URL } from '../../api';
 
 export default function CartScreen() {
   const navigate = useNavigate();
@@ -22,7 +23,9 @@ export default function CartScreen() {
   } = state;
 
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await axios.get(`/api/products/${item._id}`);
+    const { data } = await axios.get(
+      `${API_BASE_URL}/api/products/${item._id}`
+    );
     if (data.countInStock < quantity) {
       window.alert('Sorry, product is out of stock');
       return;

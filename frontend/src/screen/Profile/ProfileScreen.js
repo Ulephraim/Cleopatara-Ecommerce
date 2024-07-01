@@ -10,6 +10,7 @@ import { getError } from '../../utils';
 import axios from 'axios';
 import CheckoutNavBar from '../../components/CheckoutNavBar/CheckoutNavBar';
 import './ProfileScreen.css';
+import { API_BASE_URL } from '../../api';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -41,7 +42,7 @@ export default function ProfileScreen() {
     e.preventDefault();
     try {
       const { data } = await axios.put(
-        '/api/users/profile',
+        `${API_BASE_URL}/api/users/profile`,
         {
           name,
           email,

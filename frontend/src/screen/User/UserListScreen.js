@@ -13,6 +13,7 @@ import Button from 'react-bootstrap/Button';
 import { toast } from 'react-toastify';
 import CheckoutNavBar from '../../components/CheckoutNavBar/CheckoutNavBar';
 import './User.css';
+import { API_BASE_URL } from '../../api';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -58,7 +59,7 @@ export default function UserListScreen() {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/users`, {
+        const { data } = await axios.get(`${API_BASE_URL}/api/users`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
@@ -80,7 +81,7 @@ export default function UserListScreen() {
     if (window.confirm('Are you sure to delete ? ')) {
       try {
         dispatch({ type: 'DELETE_REQUEST' });
-        await axios.delete(`/api/users/${user._id}`, {
+        await axios.delete(`${API_BASE_URL}/api/users/${user._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success('user deleted successfully');

@@ -21,6 +21,7 @@ import { toast } from 'react-toastify';
 import './Product.css';
 import Breadcrumb from '../../components/BreadCrumb';
 import NavBar from '../../components/Navbar/NavBar';
+import { API_BASE_URL } from '../../api';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -93,13 +94,15 @@ function ProductScreen() {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get(`/api/products/slug/${slug}`);
+        const result = await axios.get(
+          `${API_BASE_URL}/api/products/slug/${slug}`
+        );
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
 
         // Fetch suggested products based on the main product's category
         dispatch({ type: 'FETCH_SUGGESTED_REQUEST' });
         const suggestedResult = await axios.get(
-          `/api/products/category/${result.data.category}`
+          `${API_BASE_URL}/api/products/category/${result.data.category}`
         );
         dispatch({
           type: 'FETCH_SUGGESTED_SUCCESS',
@@ -122,7 +125,9 @@ function ProductScreen() {
   }, [slug, cart.cartItems]);
 
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await axios.get(`/api/products/${item._id}`);
+    const { data } = await axios.get(
+      `${API_BASE_URL}/api/products/${item._id}`
+    );
     if (data.countInStock < quantity) {
       window.alert('Sorry, product is out of stock');
       return;
@@ -136,7 +141,9 @@ function ProductScreen() {
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
     const newQuantity = existItem ? existItem.quantity + quantity : quantity;
-    const { data } = await axios.get(`/api/products/${product._id}`);
+    const { data } = await axios.get(
+      `${API_BASE_URL}/api/products/${product._id}`
+    );
 
     if (data.countInStock < newQuantity) {
       window.alert('Sorry, product is out of stock');
@@ -167,7 +174,7 @@ function ProductScreen() {
     }
     try {
       const { data } = await axios.post(
-        `/api/products/${product._id}/reviews`,
+        `${API_BASE_URL}/api/products/${product._id}/reviews`,
         { rating, comment, name: userInfo.name },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },

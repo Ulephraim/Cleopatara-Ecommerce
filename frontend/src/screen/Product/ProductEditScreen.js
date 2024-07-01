@@ -14,6 +14,7 @@ import { Helmet } from 'react-helmet-async';
 import Button from 'react-bootstrap/Button';
 import './Product.css';
 import CheckoutNavBar from '../../components/CheckoutNavBar/CheckoutNavBar';
+import { API_BASE_URL } from '../../api';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -57,7 +58,9 @@ export default function ProductEditScreen() {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/products/${productId}`);
+        const { data } = await axios.get(
+          `${API_BASE_URL}/api/products/${productId}`
+        );
         setName(data.name);
         setSlug(data.slug);
         setPrice(data.price);
@@ -81,7 +84,7 @@ export default function ProductEditScreen() {
     try {
       dispatch({ type: 'UPDATE_REQUEST' });
       await axios.put(
-        `/api/products/${productId}`,
+        `${API_BASE_URL}/api/products/${productId}`,
         {
           _id: productId,
           name,

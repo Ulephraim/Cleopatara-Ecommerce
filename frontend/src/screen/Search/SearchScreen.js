@@ -17,6 +17,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import './SearchScreen.css';
 import { Store } from '../../Store';
 import NavBar from '../../components/Navbar/NavBar';
+import { API_BASE_URL } from '../../api';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -117,7 +118,7 @@ export default function SearchScreen() {
   useEffect(() => {
     const fetchBrands = async () => {
       try {
-        const { data } = await axios.get(`/api/products/brands`);
+        const { data } = await axios.get(`${API_BASE_URL}/api/products/brands`);
         setBrands(data);
       } catch (err) {
         toast.error(getError(err));
@@ -130,7 +131,7 @@ export default function SearchScreen() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/products/search?page=${page}&query=${query}&category=${category}&brand=${brand}&price=${price}&rating=${rating}&order=${order}&pageSize=12`
+          `${API_BASE_URL}/api/products/search?page=${page}&query=${query}&category=${category}&brand=${brand}&price=${price}&rating=${rating}&order=${order}&pageSize=12`
         );
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
@@ -148,7 +149,9 @@ export default function SearchScreen() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await axios.get(`/api/products/categories`);
+        const { data } = await axios.get(
+          `${API_BASE_URL}/api/products/categories`
+        );
         setCategories(data);
       } catch (err) {
         toast.error(getError(err));
@@ -204,7 +207,9 @@ export default function SearchScreen() {
   const addToCartHandler = async (product) => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/products/${product._id}`);
+    const { data } = await axios.get(
+      `${API_BASE_URL}/api/products/${product._id}`
+    );
 
     if (data.countInStock < quantity) {
       window.alert('Sorry, product is out of stock');

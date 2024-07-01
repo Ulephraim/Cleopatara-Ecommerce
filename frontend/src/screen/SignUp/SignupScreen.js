@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { getError } from '../../utils';
 import './SignupScreen.css';
 import CheckoutNavBar from '../../components/CheckoutNavBar/CheckoutNavBar';
+import { API_BASE_URL } from '../../api';
 
 export default function SignupScreen() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ export default function SignupScreen() {
       return;
     }
     try {
-      const { data } = await Axios.post('/api/users/signup', {
+      const { data } = await Axios.post(`${API_BASE_URL}/api/users/signup`, {
         name,
         email,
         password,

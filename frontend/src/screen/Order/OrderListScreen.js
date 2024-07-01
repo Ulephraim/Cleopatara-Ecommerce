@@ -12,6 +12,7 @@ import Button from 'react-bootstrap/Button';
 import { toast } from 'react-toastify';
 import './Order.css';
 import CheckoutNavBar from '../../components/CheckoutNavBar/CheckoutNavBar';
+import { API_BASE_URL } from '../../api';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -58,7 +59,7 @@ export default function OrderListScreen() {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/orders`, {
+        const { data } = await axios.get(`${API_BASE_URL}/api/orders`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
@@ -82,7 +83,7 @@ export default function OrderListScreen() {
         dispatch({
           type: 'DELETE_REQUEST',
         });
-        await axios.delete(`/api/orders/${order._id}`, {
+        await axios.delete(`${API_BASE_URL}/api/orders/${order._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success('order deleted successfully');

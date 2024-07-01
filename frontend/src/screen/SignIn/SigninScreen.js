@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { getError } from '../../utils';
 import './SigninScreen.css';
 import CheckoutNavBar from '../../components/CheckoutNavBar/CheckoutNavBar';
+import { API_BASE_URL } from '../../api';
 
 export default function SigninScreen() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export default function SigninScreen() {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await Axios.post('/api/users/signin', {
+      const { data } = await Axios.post(`${API_BASE_URL}/api/users/signin`, {
         email,
         password,
       });

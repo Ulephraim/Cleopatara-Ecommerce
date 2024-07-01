@@ -15,6 +15,7 @@ import './HomeScreen.css';
 import { Store } from '../../Store';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/Navbar/NavBar';
+import { API_BASE_URL } from '../../api';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -61,8 +62,12 @@ function HomeScreen() {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const newProductsResult = await axios.get('/api/products/new-products');
-        const bestSellersResult = await axios.get('/api/products/best-sellers');
+        const newProductsResult = await axios.get(
+          `${API_BASE_URL}/api/products/new-products`
+        );
+        const bestSellersResult = await axios.get(
+          `${API_BASE_URL}/api/products/best-sellers`
+        );
         dispatch({
           type: 'FETCH_SUCCESS_NEW',
           payload: newProductsResult.data,
@@ -81,7 +86,9 @@ function HomeScreen() {
   const addToCartHandler = async (product) => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/products/${product._id}`);
+    const { data } = await axios.get(
+      `${API_BASE_URL}/api/products/${product._id}`
+    );
 
     if (data.countInStock < quantity) {
       window.alert('Sorry, product is out of stock');

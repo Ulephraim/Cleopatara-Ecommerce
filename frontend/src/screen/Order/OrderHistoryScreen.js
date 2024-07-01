@@ -11,6 +11,7 @@ import { getError } from '../../utils';
 import Button from 'react-bootstrap/Button';
 import './Order.css';
 import CheckoutNavBar from '../../components/CheckoutNavBar/CheckoutNavBar';
+import { API_BASE_URL } from '../../api';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -39,7 +40,7 @@ export default function OrderHistoryScreen() {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const { data } = await axios.get(`/api/orders/mine`, {
+        const { data } = await axios.get(`${API_BASE_URL}/api/orders/mine`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: 'FETCH_SUCCESS', payload: data });

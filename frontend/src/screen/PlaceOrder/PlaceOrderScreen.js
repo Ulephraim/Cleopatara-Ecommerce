@@ -15,6 +15,7 @@ import LoadingBox from '../../components/LoadingBox';
 import Breadcrumb from '../../components/BreadCrumb';
 import CheckoutNavBar from '../../components/CheckoutNavBar/CheckoutNavBar';
 import './PlaceOrderScreen.css';
+import { API_BASE_URL } from '../../api';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -52,7 +53,7 @@ export default function PlaceOrderScreen() {
     try {
       dispatch({ type: 'CREATE_REQUEST' });
       const { data } = await Axios.post(
-        '/api/orders',
+        `${API_BASE_URL}/api/orders`,
         {
           orderItems: cart.cartItems,
           shippingAddress: cart.shippingAddress,

@@ -18,6 +18,7 @@ import Container from 'react-bootstrap/Container';
 import { ToastContainer, toast } from 'react-toastify';
 import logoImg from '../../assets/logo-text.png';
 import Product from '../Products';
+import { API_BASE_URL } from '../../api';
 
 const NavBar = () => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -32,7 +33,9 @@ const NavBar = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await axios.get(`/api/products/categories`);
+        const { data } = await axios.get(
+          `${API_BASE_URL}/api/products/categories`
+        );
         setCategories(data);
       } catch (err) {
         toast.error(getError(err));
@@ -86,7 +89,9 @@ const NavBar = () => {
   const addToCartHandler = async (product) => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/products/${product._id}`);
+    const { data } = await axios.get(
+      `${API_BASE_URL}/api/products/${product._id}`
+    );
 
     if (data.countInStock < quantity) {
       window.alert('Sorry, product is out of stock');
