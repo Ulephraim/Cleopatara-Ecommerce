@@ -25,7 +25,7 @@
 }
 
 @media (max-width: 600px) {
-  .sigin-position {
-    padding: 1rem;
+  .signin-position {
+    padding: 1rem 1.5rem;
   }
 }
