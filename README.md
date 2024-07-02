@@ -1,6 +1,6 @@
 ## CLEOPATRA eCommerce Site
 
-A modern and responsive eCommerce website built with the MERN stack (MongoDB, Express, React, Node.js), designed to provide an intuitive shopping experience. This project features product listings, a shopping cart, and a wishlist, with seamless image management using Cloudinary.
+A modern and responsive eCommerce website built with the MERN stack (MongoDB, Express, React, Node.js), designed to provide an intuitive shopping experience. This project features product listings, a shopping cart, and a wishlist.
 
 ## Table of Contents
 
@@ -15,6 +15,7 @@ This eCommerce site offers a sleek and user-friendly interface for browsing prod
 ## Installation
 ### Prerequisites
 - Node.js
+- React.js
 - npm
 - MongoDB
 
@@ -35,10 +36,10 @@ npm install
 cd ..
 
 # Start the backend server
-npm run backend
+npm start
 
 # Start the frontend development server
-npm run frontend
+npm start
 ```
 
 ## Technologies Used
@@ -61,5 +62,5 @@ npm run frontend
 ### Deployment:
 - **Vercel**: Platform for Deployment and Hosting
 
-## Contributing
+### Contributing
  - Contributions are welcome! Please open an issue or submit a pull request to contribute. 
