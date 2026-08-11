@@ -1,29 +1,29 @@
 /** @format */
 
-import React, { useContext, useEffect, useReducer, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { getError } from '../../utils';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { Helmet } from 'react-helmet-async';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Rating from '../../components/Rating';
-import LoadingBox from '../../components/LoadingBox';
-import MessageBox from '../../components/MessageBox';
-import Button from 'react-bootstrap/Button';
-import Product from '../../components/Products';
-import { LinkContainer } from 'react-router-bootstrap';
-import './SearchScreen.css';
-import { Store } from '../../Store';
-import NavBar from '../../components/Navbar/NavBar';
-import { API_BASE_URL } from '../../api';
+import React, { useContext, useEffect, useReducer, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { getError } from "../../utils";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Rating from "../../components/Rating";
+import LoadingBox from "../../components/LoadingBox";
+import MessageBox from "../../components/MessageBox";
+import Button from "react-bootstrap/Button";
+import Product from "../../components/Products";
+import { LinkContainer } from "react-router-bootstrap";
+import "./SearchScreen.css";
+import { Store } from "../../Store";
+import NavBar from "../../components/Navbar/NavBar";
+import { API_BASE_URL } from "../../api";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'FETCH_REQUEST':
+    case "FETCH_REQUEST":
       return { ...state, loading: true };
-    case 'FETCH_SUCCESS':
+    case "FETCH_SUCCESS":
       return {
         ...state,
         products: action.payload.products,
@@ -32,7 +32,7 @@ const reducer = (state, action) => {
         countProducts: action.payload.countProducts,
         loading: false,
       };
-    case 'FETCH_FAIL':
+    case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
@@ -41,40 +41,40 @@ const reducer = (state, action) => {
 
 const prices = [
   {
-    name: '$1 to $50',
-    value: '1-50',
+    name: "$1 to $50",
+    value: "1-50",
   },
   {
-    name: '$51 to $200',
-    value: '51-200',
+    name: "$51 to $200",
+    value: "51-200",
   },
   {
-    name: '$201 to $1000',
-    value: '201-1000',
+    name: "$201 to $1000",
+    value: "201-1000",
   },
 ];
 
 export const ratings = [
   {
-    name: '4stars & up',
+    name: "4stars & up",
     rating: 4,
   },
   {
-    name: '3stars & up',
+    name: "3stars & up",
     rating: 3,
   },
   {
-    name: '2stars & up',
+    name: "2stars & up",
     rating: 2,
   },
   {
-    name: '1stars & up',
+    name: "1stars & up",
     rating: 1,
   },
 ];
 
 const categoryMessages = {
-  all: 'Explore our extensive range of products across various categories.',
+  all: "Explore our extensive range of products across various categories.",
   Conditioner:
     "  Shop our extensive selection of hair conditioners from the best brands in the world and give your hair the nourishment it deserves. Our collection features luxurious products from Aweda (Estée Lauder), L'Oreal Paris (L'Oreal), Garnier (L'Oreal), Dove (Unilever), Clairol (P&G), Matrix from L'Oreal, Pantene from P&G, and Neutrogena from Johnson & Johnson. These top-rated conditioners are formulated to address various hair needs, from hydration and smoothing to repair and color protection. Keep your locks smooth, shiny, and healthy with our carefully selected conditioners, designed to bring out the best in your hair.",
 
@@ -100,18 +100,18 @@ export default function SearchScreen() {
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
 
-  const category = sp.get('category') || 'all';
-  const query = sp.get('query') || 'all';
-  const price = sp.get('price') || 'all';
-  const rating = sp.get('rating') || 'all';
-  const order = sp.get('order') || 'newest';
-  const page = sp.get('page') || 1;
-  const brand = sp.get('brand') || 'all';
+  const category = sp.get("category") || "all";
+  const query = sp.get("query") || "all";
+  const price = sp.get("price") || "all";
+  const rating = sp.get("rating") || "all";
+  const order = sp.get("order") || "newest";
+  const page = sp.get("page") || 1;
+  const brand = sp.get("brand") || "all";
 
   const [{ loading, error, products, pages, countProducts }, dispatch] =
     useReducer(reducer, {
       loading: true,
-      error: '',
+      error: "",
       products: [],
     });
   const [brands, setBrands] = useState([]);
@@ -131,12 +131,12 @@ export default function SearchScreen() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `${API_BASE_URL}/api/products/search?page=${page}&query=${query}&category=${category}&brand=${brand}&price=${price}&rating=${rating}&order=${order}&pageSize=12`
+          `${API_BASE_URL}/api/products/search?page=${page}&query=${query}&category=${category}&brand=${brand}&price=${price}&rating=${rating}&order=${order}&pageSize=12`,
         );
-        dispatch({ type: 'FETCH_SUCCESS', payload: data });
+        dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (err) {
         dispatch({
-          type: 'FETCH_FAIL',
+          type: "FETCH_FAIL",
           payload: getError(error),
         });
       }
@@ -145,58 +145,59 @@ export default function SearchScreen() {
     fetchData();
   }, [category, error, order, page, price, query, rating, brand]);
 
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const { data } = await axios.get(
-          `${API_BASE_URL}/api/products/categories`
-        );
-        setCategories(data);
-      } catch (err) {
-        toast.error(getError(err));
-      }
-    };
-    fetchCategories();
-  }, []);
+  // const [categories, setCategories] = useState([]);
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     try {
+  //       const { data } = await axios.get(
+  //         `${API_BASE_URL}/api/products/categories`
+  //       );
+  //       setCategories(data);
+  //     } catch (err) {
+  //       toast.error(getError(err));
+  //     }
+  //   };
+  //   fetchCategories();
+  // }, []);
 
   const [categoryMessage, setCategoryMessage] = useState(categoryMessages.all);
 
   useEffect(() => {
     setCategoryMessage(categoryMessages[category] || categoryMessages.all);
   }, [category]);
+
   const [isDepartmentOpen, setIsDepartmentOpen] = useState(false);
   const [isPriceOpen, setIsPriceOpen] = useState(false);
   const [isRatingOpen, setIsRatingOpen] = useState(false);
   const [isBrandOpen, setIsBrandOpen] = useState(false);
 
   const toggleDropdown = (dropdown) => {
-    if (dropdown === 'department') setIsDepartmentOpen(!isDepartmentOpen);
-    if (dropdown === 'price') setIsPriceOpen(!isPriceOpen);
-    if (dropdown === 'rating') setIsRatingOpen(!isRatingOpen);
-    if (dropdown === 'brand') setIsBrandOpen(!isBrandOpen);
+    if (dropdown === "department") setIsDepartmentOpen(!isDepartmentOpen);
+    if (dropdown === "price") setIsPriceOpen(!isPriceOpen);
+    if (dropdown === "rating") setIsRatingOpen(!isRatingOpen);
+    if (dropdown === "brand") setIsBrandOpen(!isBrandOpen);
   };
 
   const getFilterUrl = (filter) => {
     const filterPage = filter.page || page;
     const filterCategory =
-      filter.category !== undefined ? filter.category : category || 'all';
+      filter.category !== undefined ? filter.category : category || "all";
     const filterQuery =
-      filter.query !== undefined ? filter.query : query || 'all';
+      filter.query !== undefined ? filter.query : query || "all";
     const filterBrand =
-      filter.brand !== undefined ? filter.brand : brand || 'all';
+      filter.brand !== undefined ? filter.brand : brand || "all";
     const filterRating =
-      filter.rating !== undefined ? filter.rating : rating || 'all';
+      filter.rating !== undefined ? filter.rating : rating || "all";
     const filterPrice =
-      filter.price !== undefined ? filter.price : price || 'all';
+      filter.price !== undefined ? filter.price : price || "all";
     const sortOrder =
-      filter.order !== undefined ? filter.order : order || 'newest';
+      filter.order !== undefined ? filter.order : order || "newest";
     const filterPageSize = filter.pageSize || 12;
 
     const queryString = `?category=${filterCategory}&query=${filterQuery}&brand=${filterBrand}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}&pageSize=${filterPageSize}`;
 
     return {
-      pathname: '/search',
+      pathname: "/search",
       search: queryString,
     };
   };
@@ -208,16 +209,16 @@ export default function SearchScreen() {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(
-      `${API_BASE_URL}/api/products/${product._id}`
+      `${API_BASE_URL}/api/products/${product._id}`,
     );
 
     if (data.countInStock < quantity) {
-      window.alert('Sorry, product is out of stock');
+      window.alert("Sorry, product is out of stock");
       return;
     }
 
     ctxDispatch({
-      type: 'CART_ADD_ITEM',
+      type: "CART_ADD_ITEM",
       payload: { ...product, quantity },
     });
   };
@@ -225,9 +226,9 @@ export default function SearchScreen() {
   const addToWishlistHandler = (product) => {
     const existItem = wishlist.find((x) => x._id === product._id);
     if (existItem) {
-      ctxDispatch({ type: 'WISHLIST_REMOVE_ITEM', payload: product });
+      ctxDispatch({ type: "WISHLIST_REMOVE_ITEM", payload: product });
     } else {
-      ctxDispatch({ type: 'WISHLIST_ADD_ITEM', payload: product });
+      ctxDispatch({ type: "WISHLIST_ADD_ITEM", payload: product });
     }
   };
 
@@ -260,18 +261,18 @@ export default function SearchScreen() {
 
           <div
             className="dropdown-header"
-            onClick={() => toggleDropdown('brand')}
+            onClick={() => toggleDropdown("brand")}
           >
             <p>Brand</p>
-            <Button variant="light">{isBrandOpen ? '-' : '+'}</Button>
+            <Button variant="light">{isBrandOpen ? "-" : "+"}</Button>
           </div>
           {isBrandOpen && (
             <div className="department-list">
               <ul>
                 <li>
                   <Link
-                    className={'all' === brand ? 'text-bold' : ''}
-                    to={getFilterUrl({ brand: 'all' })}
+                    className={"all" === brand ? "text-bold" : ""}
+                    to={getFilterUrl({ brand: "all" })}
                   >
                     Any
                   </Link>
@@ -279,7 +280,7 @@ export default function SearchScreen() {
                 {brands.map((b) => (
                   <li key={b}>
                     <Link
-                      className={b === brand ? 'text-bold' : ''}
+                      className={b === brand ? "text-bold" : ""}
                       to={getFilterUrl({ brand: b })}
                     >
                       {b}
@@ -292,18 +293,18 @@ export default function SearchScreen() {
 
           <div
             className="dropdown-header"
-            onClick={() => toggleDropdown('price')}
+            onClick={() => toggleDropdown("price")}
           >
             <p>Price</p>
-            <Button variant="light">{isPriceOpen ? '-' : '+'}</Button>
+            <Button variant="light">{isPriceOpen ? "-" : "+"}</Button>
           </div>
           {isPriceOpen && (
             <div className="department-list">
               <ul>
                 <li>
                   <Link
-                    className={'all' === price ? 'text-bold' : ''}
-                    to={getFilterUrl({ price: 'all' })}
+                    className={"all" === price ? "text-bold" : ""}
+                    to={getFilterUrl({ price: "all" })}
                   >
                     Any
                   </Link>
@@ -312,7 +313,7 @@ export default function SearchScreen() {
                   <li key={p.value}>
                     <Link
                       to={getFilterUrl({ price: p.value })}
-                      className={p.value === price ? 'text-bold' : ''}
+                      className={p.value === price ? "text-bold" : ""}
                     >
                       {p.name}
                     </Link>
@@ -324,10 +325,10 @@ export default function SearchScreen() {
 
           <div
             className="dropdown-header"
-            onClick={() => toggleDropdown('rating')}
+            onClick={() => toggleDropdown("rating")}
           >
             <p>Customer Reviews</p>
-            <Button variant="light">{isRatingOpen ? '-' : '+'}</Button>
+            <Button variant="light">{isRatingOpen ? "-" : "+"}</Button>
           </div>
           {isRatingOpen && (
             <div className="department-list">
@@ -337,19 +338,19 @@ export default function SearchScreen() {
                     <Link
                       to={getFilterUrl({ rating: r.rating })}
                       className={
-                        `${r.rating}` === `${rating}` ? 'text-bold' : ''
+                        `${r.rating}` === `${rating}` ? "text-bold" : ""
                       }
                     >
-                      <Rating caption={' & up'} rating={r.rating}></Rating>
+                      <Rating caption={" & up"} rating={r.rating}></Rating>
                     </Link>
                   </li>
                 ))}
                 <li>
                   <Link
-                    to={getFilterUrl({ rating: 'all' })}
-                    className={rating === 'all' ? 'text-bold' : ''}
+                    to={getFilterUrl({ rating: "all" })}
+                    className={rating === "all" ? "text-bold" : ""}
                   >
-                    <Rating caption={' & up'} rating={0}></Rating>
+                    <Rating caption={" & up"} rating={0}></Rating>
                   </Link>
                 </li>
               </ul>
@@ -367,18 +368,18 @@ export default function SearchScreen() {
               <Row className="filter-products-row-hd">
                 <Col className="filter-products-col-hd">
                   <div>
-                    {countProducts === 0 ? 'No' : countProducts} Results
-                    {query !== 'all' && ' : ' + query}
-                    {category !== 'all' && ' : ' + category}
-                    {price !== 'all' && ' : Price ' + price}
-                    {rating !== 'all' && ' : Rating ' + rating + ' & up'}
-                    {query !== 'all' ||
-                    category !== 'all' ||
-                    rating !== 'all' ||
-                    price !== 'all' ? (
+                    {countProducts === 0 ? "No" : countProducts} Results
+                    {query !== "all" && " : " + query}
+                    {category !== "all" && " : " + category}
+                    {price !== "all" && " : Price " + price}
+                    {rating !== "all" && " : Rating " + rating + " & up"}
+                    {query !== "all" ||
+                    category !== "all" ||
+                    rating !== "all" ||
+                    price !== "all" ? (
                       <Button
                         variant="light"
-                        onClick={() => navigate('/search')}
+                        onClick={() => navigate("/search")}
                       >
                         <i className="fas fa-times-circle"></i>
                       </Button>
@@ -413,7 +414,7 @@ export default function SearchScreen() {
                     to={getFilterUrl({ page: x + 1 })}
                   >
                     <Button
-                      className={Number(page) === x + 1 ? 'text-bold' : ''}
+                      className={Number(page) === x + 1 ? "text-bold" : ""}
                       id="pagenumb-btn"
                     >
                       {x + 1}
