@@ -1,53 +1,53 @@
 /** @format */
 
-import axios from 'axios';
-import { useContext, useEffect, useReducer, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Rating from '../../components/Rating';
+import axios from "axios";
+import { useContext, useEffect, useReducer, useRef, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import ListGroup from "react-bootstrap/ListGroup";
+import Rating from "../../components/Rating";
 
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import { Helmet } from 'react-helmet-async';
-import LoadingBox from '../../components/LoadingBox';
-import MessageBox from '../../components/MessageBox';
-import { getError } from '../../utils';
-import { Store } from '../../Store';
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import { Helmet } from "react-helmet-async";
+import LoadingBox from "../../components/LoadingBox";
+import MessageBox from "../../components/MessageBox";
+import { getError } from "../../utils";
+import { Store } from "../../Store";
 
-import Form from 'react-bootstrap/Form';
-import { toast } from 'react-toastify';
-import './Product.css';
-import Breadcrumb from '../../components/BreadCrumb';
-import NavBar from '../../components/Navbar/NavBar';
-import { API_BASE_URL } from '../../api';
+import Form from "react-bootstrap/Form";
+import { toast } from "react-toastify";
+import "./Product.css";
+import Breadcrumb from "../../components/BreadCrumb";
+import NavBar from "../../components/Navbar/NavBar";
+import { API_BASE_URL } from "../../api";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'REFRESH_PRODUCT':
+    case "REFRESH_PRODUCT":
       return { ...state, product: action.payload };
-    case 'CREATE_REQUEST':
+    case "CREATE_REQUEST":
       return { ...state, loadingCreateReviews: true };
-    case 'CREATE_SUCCESS':
+    case "CREATE_SUCCESS":
       return { ...state, loadingCreateReviews: false };
-    case 'CREATE_FAIL':
+    case "CREATE_FAIL":
       return { ...state, loadingCreateReviews: false };
-    case 'FETCH_REQUEST':
+    case "FETCH_REQUEST":
       return { ...state, loading: true };
-    case 'FETCH_SUCCESS':
+    case "FETCH_SUCCESS":
       return { ...state, product: action.payload, loading: false };
-    case 'FETCH_FAIL':
+    case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
-    case 'FETCH_SUGGESTED_REQUEST':
+    case "FETCH_SUGGESTED_REQUEST":
       return { ...state, loadingSuggested: true };
-    case 'FETCH_SUGGESTED_SUCCESS':
+    case "FETCH_SUGGESTED_SUCCESS":
       return {
         ...state,
         suggestedProducts: action.payload,
         loadingSuggested: false,
       };
-    case 'FETCH_SUGGESTED_FAIL':
+    case "FETCH_SUGGESTED_FAIL":
       return {
         ...state,
         loadingSuggested: false,
@@ -61,7 +61,7 @@ const reducer = (state, action) => {
 function ProductScreen() {
   const reviewsRef = useRef();
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -79,11 +79,11 @@ function ProductScreen() {
     },
     dispatch,
   ] = useReducer(reducer, {
-    product: { reviews: [], description: '' },
+    product: { reviews: [], description: "" },
     loading: true,
-    error: '',
+    error: "",
     loadingSuggested: false,
-    errorSuggested: '',
+    errorSuggested: "",
     suggestedProducts: [],
   });
 
@@ -92,20 +92,20 @@ function ProductScreen() {
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: 'FETCH_REQUEST' });
+      dispatch({ type: "FETCH_REQUEST" });
       try {
         const result = await axios.get(
-          `${API_BASE_URL}/api/products/slug/${slug}`
+          `${API_BASE_URL}/api/products/slug/${slug}`,
         );
-        dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
+        dispatch({ type: "FETCH_SUCCESS", payload: result.data });
 
         // Fetch suggested products based on the main product's category
-        dispatch({ type: 'FETCH_SUGGESTED_REQUEST' });
+        dispatch({ type: "FETCH_SUGGESTED_REQUEST" });
         const suggestedResult = await axios.get(
-          `${API_BASE_URL}/api/products/category/${result.data.category}`
+          `${API_BASE_URL}/api/products/category/${result.data.category}`,
         );
         dispatch({
-          type: 'FETCH_SUGGESTED_SUCCESS',
+          type: "FETCH_SUGGESTED_SUCCESS",
           payload: suggestedResult.data,
         });
 
@@ -117,8 +117,8 @@ function ProductScreen() {
         //   result.data.countInStock > 0 ? 'In Stock' : 'Out of Stock'
         // );
       } catch (err) {
-        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
-        dispatch({ type: 'FETCH_SUGGESTED_FAIL', payload: getError(err) });
+        dispatch({ type: "FETCH_FAIL", payload: getError(err) });
+        dispatch({ type: "FETCH_SUGGESTED_FAIL", payload: getError(err) });
       }
     };
     fetchData();
@@ -126,14 +126,14 @@ function ProductScreen() {
 
   const updateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(
-      `${API_BASE_URL}/api/products/${item._id}`
+      `${API_BASE_URL}/api/products/${item._id}`,
     );
     if (data.countInStock < quantity) {
-      window.alert('Sorry, product is out of stock');
+      window.alert("Sorry, product is out of stock");
       return;
     }
     ctxDispatch({
-      type: 'CART_ADD_ITEM',
+      type: "CART_ADD_ITEM",
       payload: { ...item, quantity },
     });
   };
@@ -142,16 +142,16 @@ function ProductScreen() {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
     const newQuantity = existItem ? existItem.quantity + quantity : quantity;
     const { data } = await axios.get(
-      `${API_BASE_URL}/api/products/${product._id}`
+      `${API_BASE_URL}/api/products/${product._id}`,
     );
 
     if (data.countInStock < newQuantity) {
-      window.alert('Sorry, product is out of stock');
+      window.alert("Sorry, product is out of stock");
       return;
     }
 
     ctxDispatch({
-      type: 'CART_ADD_ITEM',
+      type: "CART_ADD_ITEM",
       payload: { ...product, quantity: newQuantity },
     });
     // navigate('/cart');
@@ -169,7 +169,7 @@ function ProductScreen() {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!comment || !rating) {
-      toast.error('Please enter comment and rating');
+      toast.error("Please enter comment and rating");
       return;
     }
     try {
@@ -178,25 +178,25 @@ function ProductScreen() {
         { rating, comment, name: userInfo.name },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
-        }
+        },
       );
 
-      dispatch({ type: 'CREATE_SUCCESS' });
-      toast.success('Review submitted successfully');
+      dispatch({ type: "CREATE_SUCCESS" });
+      toast.success("Review submitted successfully");
       product.reviews.unshift(data.review);
       product.numReviews = data.numReviews;
       product.rating = data.rating;
       dispatch({
-        type: 'REFRESH_PRODUCT',
+        type: "REFRESH_PRODUCT",
         payload: product,
       });
       window.scrollTo({
-        behavior: 'smooth',
+        behavior: "smooth",
         top: reviewsRef.current.offsetTop,
       });
     } catch (error) {
       toast.error(getError(error));
-      dispatch({ type: 'CREATE_FAIL' });
+      dispatch({ type: "CREATE_FAIL" });
     }
   };
 
@@ -209,11 +209,11 @@ function ProductScreen() {
   const addToWishlistHandler = (product) => {
     const isWishlisted = wishlistItems.find((item) => item._id === product._id);
     if (isWishlisted) {
-      ctxDispatch({ type: 'WISHLIST_REMOVE_ITEM', payload: product });
-      toast.info('Removed from wishlist');
+      ctxDispatch({ type: "WISHLIST_REMOVE_ITEM", payload: product });
+      toast.info("Removed from wishlist");
     } else {
-      ctxDispatch({ type: 'WISHLIST_ADD_ITEM', payload: product });
-      toast.success('Added to wishlist');
+      ctxDispatch({ type: "WISHLIST_ADD_ITEM", payload: product });
+      toast.success("Added to wishlist");
     }
   };
 
@@ -258,7 +258,7 @@ function ProductScreen() {
 
                   {product.description ? (
                     <ul>
-                      {product.description.split('\n').map((item, index) => (
+                      {product.description.split("\n").map((item, index) => (
                         <li key={index}>{item}</li>
                       ))}
                     </ul>
@@ -284,7 +284,7 @@ function ProductScreen() {
                               disabled={quantity === 1}
                             >
                               <i className="fas fa-minus"></i>
-                            </Button>{' '}
+                            </Button>{" "}
                             <span className="qty-span">{quantity}</span>
                             <Button
                               className="qty-btn-plus"
@@ -314,7 +314,7 @@ function ProductScreen() {
                             addToCartHandler();
                           }}
                         >
-                          Add to Bag{' '}
+                          Add to Bag{" "}
                           <i className="fas fa-shopping-bag left-icon"></i>
                         </Button>
                       )}
@@ -326,7 +326,7 @@ function ProductScreen() {
                       }}
                     >
                       <Button className="wishlist-btn">
-                        Add to wishlist{' '}
+                        Add to wishlist{" "}
                         <i className="far fa-heart left-icon"></i>
                       </Button>
                     </div>
@@ -335,9 +335,9 @@ function ProductScreen() {
                 <ListGroup.Item className="share-item">
                   <p>SHARE THIS</p>
                   <div className="share-cont-3-icons">
-                    <i class="fab fa-facebook foot-icon"></i>
-                    <i class="fab fa-twitter foot-icon"></i>
-                    <i class="fab fa-instagram foot-icon"></i>
+                    <i classname="fab fa-facebook foot-icon"></i>
+                    <i classname="fab fa-twitter foot-icon"></i>
+                    <i classname="fab fa-instagram foot-icon"></i>
                   </div>
                 </ListGroup.Item>
               </ListGroup>
@@ -348,7 +348,7 @@ function ProductScreen() {
               <h3 ref={reviewsRef}>Customer Reviews</h3>
 
               <button className="submit-btn" onClick={toggleReviews}>
-                {showReviews ? 'Hide Reviews' : 'Read Reviews'}
+                {showReviews ? "Hide Reviews" : "Read Reviews"}
               </button>
             </div>
             {showReviews && (
@@ -411,10 +411,10 @@ function ProductScreen() {
                 </form>
               ) : (
                 <MessageBox>
-                  Please{' '}
+                  Please{" "}
                   <Link to={`/signin?redirect=/product/${product.slug}`}>
                     Sign In
-                  </Link>{' '}
+                  </Link>{" "}
                   to write a review
                 </MessageBox>
               )}
@@ -426,7 +426,7 @@ function ProductScreen() {
                 <Row>
                   {suggestedProducts.slice(0, 4).map((suggestedProduct) => {
                     const isWishlisted = wishlistItems.some(
-                      (item) => item._id === suggestedProduct._id
+                      (item) => item._id === suggestedProduct._id,
                     );
                     return (
                       <Col
@@ -467,15 +467,15 @@ function ProductScreen() {
                                 }}
                                 className={
                                   isWishlisted
-                                    ? 'wishlist-buttn active'
-                                    : 'wishlist-buttn'
+                                    ? "wishlist-buttn active"
+                                    : "wishlist-buttn"
                                 }
                               >
                                 <i
                                   className={
                                     isWishlisted
-                                      ? 'fas fa-heart grad-h'
-                                      : 'far fa-heart'
+                                      ? "fas fa-heart grad-h"
+                                      : "far fa-heart"
                                   }
                                 ></i>
                               </Button>
