@@ -26,7 +26,7 @@ const NavBar = () => {
   const [categories, setCategories] = useState([]);
   const [navbarTransparent, setNavbarTransparent] = useState(true);
   const [scrolledOnce, setScrolledOnce] = useState(false);
-  const [activeCategory, setActiveCategory] = useState(""); // State to keep track of active category
+  const [activeCategory, setActiveCategory] = useState("");
 
   const location = useLocation();
 
